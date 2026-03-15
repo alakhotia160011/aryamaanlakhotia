@@ -92,9 +92,64 @@
       flex-shrink: 0;
       width: 24px;
     }
+
+    /* Dream checklist */
+    ol li {
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    ol li.done {
+      color: var(--muted);
+    }
+    ol li .strike-line {
+      position: absolute;
+      left: 40px;
+      right: 0;
+      top: 50%;
+      height: 1.5px;
+      background: var(--muted);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    ol li.done .strike-line {
+      transform: scaleX(1);
+    }
+    ol li.done::before {
+      opacity: 0.4;
+    }
+
+    /* Scroll-reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Page transition overlay */
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .page-transition.active {
+      opacity: 1;
+      pointer-events: all;
+    }
   </style>
 </head>
 <body>
+  <div class="page-transition" id="pageTransition"></div>
 
   <a href="index.html" class="back">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
@@ -162,5 +217,89 @@
     <li>Write a poem for my partner</li>
   </ol>
 
+  <script>
+    // Add strike-line span to each dream item
+    document.querySelectorAll('ol li').forEach(li => {
+      const line = document.createElement('span');
+      line.className = 'strike-line';
+      li.appendChild(line);
+    });
+
+    // Pre-completed dreams (1-indexed)
+    const preCompleted = [9, 10, 25, 50];
+
+    // Load state from localStorage
+    const storageKey = 'dreams-completed';
+    let completed = JSON.parse(localStorage.getItem(storageKey) || '[]');
+
+    // Merge pre-completed on first visit
+    if (!localStorage.getItem(storageKey)) {
+      completed = [...preCompleted];
+      localStorage.setItem(storageKey, JSON.stringify(completed));
+    }
+
+    const items = document.querySelectorAll('ol li');
+
+    function applyState() {
+      items.forEach((li, i) => {
+        const num = i + 1;
+        if (completed.includes(num)) {
+          li.classList.add('done');
+        } else {
+          li.classList.remove('done');
+        }
+      });
+    }
+
+    applyState();
+
+    items.forEach((li, i) => {
+      li.addEventListener('click', () => {
+        const num = i + 1;
+        const idx = completed.indexOf(num);
+        if (idx > -1) {
+          completed.splice(idx, 1);
+        } else {
+          completed.push(num);
+        }
+        localStorage.setItem(storageKey, JSON.stringify(completed));
+        applyState();
+      });
+    });
+
+    // Scroll-reveal
+    document.querySelectorAll('.intro, ol li').forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = `${Math.min(i * 0.04, 0.8)}s`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Smooth page transitions
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && (href.endsWith('.html') || href === 'index.html') && !href.startsWith('http')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const overlay = document.getElementById('pageTransition');
+          overlay.classList.add('active');
+          setTimeout(() => { window.location.href = href; }, 300);
+        });
+      }
+    });
+
+    window.addEventListener('pageshow', () => {
+      document.getElementById('pageTransition').classList.remove('active');
+    });
+  </script>
 </body>
 </html>

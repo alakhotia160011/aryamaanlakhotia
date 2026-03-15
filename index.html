@@ -165,9 +165,35 @@
       font-weight: 400;
       margin-left: 4px;
     }
+    /* Scroll-reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Page transition overlay */
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .page-transition.active {
+      opacity: 1;
+      pointer-events: all;
+    }
   </style>
 </head>
 <body>
+  <div class="page-transition" id="pageTransition"></div>
 
   
   <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:0;">
@@ -184,7 +210,7 @@
   </div>
 
   <div class="nav" style="margin-top:14px; padding-top:0; border-top:none; margin-bottom:32px;">
-    <a href="/cdn-cgi/l/email-protection#d8b9aaa1f6b4b9b3b0b7acb1b998bfb5b9b1b4f6bbb7b5" title="Email">
+    <a href="mailto:ary.lakhotia@gmail.com" title="Email">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
     </a>
     <a href="https://x.com/aryamaantwt" target="_blank" title="Twitter / X">
@@ -213,7 +239,7 @@
 
   <div class="bio">
     <p>I work in finance and tinker with products on the side, drawn to problems where technology meets underserved, high-scale markets.</p>
-    <p style="margin-top:14px;">Currently exploring voice AI for India through <a href="#" target="_blank">VoxBharat</a>, specifically how AI-powered outbound calls can replace traditional surveys for customer research and polling in vernacular languages at a fraction of the cost.</p>
+    <p style="margin-top:14px;">Currently exploring voice AI for India through <a href="https://www.voxbharat.ai/" target="_blank">VoxBharat</a>, specifically how AI-powered outbound calls can replace traditional surveys for customer research and polling in vernacular languages at a fraction of the cost.</p>
     <p style="margin-top:14px;">Before finance, I worked on product and growth at <a href="https://www.seedlabs.com/" target="_blank">Seed Labs</a>, was Chief of Staff at Merry as a <a href="https://publicservice.fas.harvard.edu/priscilla-chan-summer-service-stipend" target="_blank">Priscilla Chan Fellow</a> through Harvard, interned in economic research at the Central Bank of Armenia, and was Community Lead at <a href="https://www.openhouse.study/" target="_blank">Openhouse</a>. During Covid, I left it all to farm cotton in rural Maharashtra.</p>
   </div>
 
@@ -223,7 +249,16 @@
       <li>
         <div>
           <a href="https://www.youtube.com/watch?v=JlrtN1L-Oro" target="_blank">Harvard University</a>
-          <div style="font-size:12.5px;color:var(--muted);margin-top:4px;">Math &amp; Econ TA · Sigma Chi · Cricket Club · Pforzheimer House Treasurer · Lowell Tea · Harvard Undergraduate Capital Partners · Woodbridge · FIP</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;">
+            <span style="font-size:12px;border:1px solid var(--border);padding:2px 9px;border-radius:20px;color:#555;">Math & Econ TA</span>
+            <span style="font-size:12px;border:1px solid var(--border);padding:2px 9px;border-radius:20px;color:#555;">Sigma Chi</span>
+            <span style="font-size:12px;border:1px solid var(--border);padding:2px 9px;border-radius:20px;color:#555;">Cricket Club</span>
+            <span style="font-size:12px;border:1px solid var(--border);padding:2px 9px;border-radius:20px;color:#555;">Pforzheimer House Treasurer</span>
+            <span style="font-size:12px;border:1px solid var(--border);padding:2px 9px;border-radius:20px;color:#555;">Lowell Tea</span>
+            <span style="font-size:12px;border:1px solid var(--border);padding:2px 9px;border-radius:20px;color:#555;">Harvard Undergraduate Capital Partners</span>
+            <span style="font-size:12px;border:1px solid var(--border);padding:2px 9px;border-radius:20px;color:#555;">Woodbridge</span>
+            <span style="font-size:12px;border:1px solid var(--border);padding:2px 9px;border-radius:20px;color:#555;">FIP</span>
+          </div>
         </div>
         <span class="meta" style="flex-shrink:0;">A.B. Economics · 2024</span>
       </li>
@@ -299,5 +334,57 @@
     </ul>
   </section>
 
+  <script>
+    // Scroll-reveal: add .reveal to all sections and bio
+    document.querySelectorAll('section, .bio').forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = `${i * 0.08}s`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Magnetic nav icons
+    document.querySelectorAll('.nav a').forEach(icon => {
+      icon.addEventListener('mousemove', (e) => {
+        const rect = icon.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        icon.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px)`;
+        icon.style.transition = 'transform 0.15s ease-out';
+      });
+      icon.addEventListener('mouseleave', () => {
+        icon.style.transform = 'translate(0, 0)';
+        icon.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      });
+    });
+
+    // Smooth page transitions
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && (href.endsWith('.html') || href === 'index.html' || href === '50dreams.html') && !href.startsWith('http')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const overlay = document.getElementById('pageTransition');
+          overlay.classList.add('active');
+          setTimeout(() => { window.location.href = href; }, 300);
+        });
+      }
+    });
+
+    // Fade in on page load (remove transition overlay if coming from another page)
+    window.addEventListener('pageshow', () => {
+      const overlay = document.getElementById('pageTransition');
+      overlay.classList.remove('active');
+    });
+  </script>
 </body>
 </html>
