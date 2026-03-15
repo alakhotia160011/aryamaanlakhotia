@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>50 Dreams · Aryamaan Lakhotia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf8;
+      --text: #1a1a1a;
+      --muted: #888;
+      --accent: #c0392b;
+      --border: #e8e8e4;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      padding: 80px 48px;
+      max-width: 780px;
+      margin: 0 auto;
+      -webkit-font-smoothing: antialiased;
+      opacity: 0;
+      animation: fadein 0.6s ease forwards;
+    }
+    @keyframes fadein { to { opacity: 1; } }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 48px;
+      transition: color 0.15s;
+    }
+    .back:hover { color: var(--text); }
+
+    h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .intro p + p { margin-top: 10px; }
+
+    .intro a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    ol {
+      list-style: none;
+      counter-reset: dreams;
+    }
+
+    ol li {
+      counter-increment: dreams;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14.5px;
+    }
+    ol li:first-child { border-top: 1px solid var(--border); }
+
+    ol li::before {
+      content: counter(dreams, decimal-leading-zero);
+      color: var(--muted);
+      font-size: 11px;
+      flex-shrink: 0;
+      width: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
+    Aryamaan Lakhotia
+  </a>
+
+  <h1>50 Dreams</h1>
+
+  <div class="intro">
+    <p>I value passion, resilience, and impactful ideas. If there is anything I learnt from my background, at Harvard, or at work, it is that consistent efforts, however small, culminate in big rewards.</p>
+    <p>When I turned 19, I re-watched <a href="https://www.youtube.com/watch?v=WqDyTLFbMSI" target="_blank">Masayoshi Son's interview with David Rubenstein</a>. Deeply inspired by his 50-year life plan, which he wrote as a 19-year-old student at UC Berkeley, I decided to note down my 50 goals for the next 50 years.</p>
+    <p>Here are the things I hope to do before I turn 70.</p>
+  </div>
+
+  <ol>
+    <li>Attend the Kumbh Mela</li>
+    <li>Become a Prime Ministerial candidate</li>
+    <li>Bike across Scandinavia</li>
+    <li>Buy a professional sports team</li>
+    <li>Celebrate Diwali in Ayodhya</li>
+    <li>Complete the Ironman triathlon</li>
+    <li>Collect 25 old maps of India</li>
+    <li>Cut 20 kites on Makar Sakranti</li>
+    <li>Cycle from Manali to Leh and over Khardung La Pass</li>
+    <li>Eat an extra-large pizza by myself</li>
+    <li>Employ 4 million people across all my businesses and investments</li>
+    <li>Expand Toy Joy to 100 cities in the world</li>
+    <li>Experience zero-gravity in space (and confirm that Earth is round)</li>
+    <li>Feature in a hit music video</li>
+    <li>Fly a plane</li>
+    <li>Financially support 100 Indian low-income undergraduate students at Ivy Leagues</li>
+    <li>Get a meal with Chamath Palihapitiya (and match his tip)</li>
+    <li>Have a cumulative turnover of $2 trillion across all my businesses, and use the money as an instrument of change to positively affect at least 25% of India's population</li>
+    <li>Have a tangible library collection of 1,500 books</li>
+    <li>Hit a six at Lord's</li>
+    <li>Hike in the Grand Canyon</li>
+    <li>Explore the ruins of Hampi</li>
+    <li>Learn to surf</li>
+    <li>Learn to play the saxophone</li>
+    <li>Live-paint the Aurora Borealis</li>
+    <li>Listen to a talk by every Fortune 500 chief executive, then give a talk at Stanford GSB</li>
+    <li>Meditate in Kamakura, Japan</li>
+    <li>Play badminton with a champion athlete</li>
+    <li>Play scrabble with a spelling-bee winner</li>
+    <li>Read 100 books in a year</li>
+    <li>Recreate a woodblock print of The Great Wave off Kanagawa</li>
+    <li>Research and write about the history and evolution of the Bombay Stock Exchange</li>
+    <li>Revolutionise finance and capital development in India</li>
+    <li>Ring the Opening Bell at NYSE</li>
+    <li>Ride a sled in the South Pole</li>
+    <li>Route 66 road trip with college roommates</li>
+    <li>Operate a digital library for K-12 institutions in India</li>
+    <li>Own a luxury sedan</li>
+    <li>Own a fort in Rajasthan</li>
+    <li>Skydive in Fox Glacier, New Zealand</li>
+    <li>Spend Christmas in New York</li>
+    <li>Stay overnight with Indian soldiers in Siachen during winter</li>
+    <li>Teach a class at Harvard</li>
+    <li>Tend a home garden</li>
+    <li>Train with an Olympian</li>
+    <li>Travel to all seven wonders of the world in a single trip</li>
+    <li>Trek to the Valley of Flowers in Uttarakhand</li>
+    <li>Visit Mt. Everest</li>
+    <li>Workout to get six-pack abs</li>
+    <li>Write a poem for my partner</li>
+  </ol>
+
+</body>
+</html>
