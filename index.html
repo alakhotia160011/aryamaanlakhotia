@@ -193,6 +193,109 @@
       opacity: 1;
       pointer-events: all;
     }
+
+    /* ── Project Carousel ── */
+    .project-carousel {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 4px 0 8px;
+    }
+    .project-carousel::-webkit-scrollbar { display: none; }
+
+    .project-card {
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+      text-decoration: none;
+      color: var(--text);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #fff;
+      transition: box-shadow 0.25s, border-color 0.25s;
+    }
+    .project-card:hover {
+      border-color: #ccc;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .project-preview {
+      position: relative;
+      width: 300px;
+      height: 180px;
+      overflow: hidden;
+      background: #f0f0ee;
+    }
+    .project-preview iframe {
+      width: 1200px;
+      height: 720px;
+      border: none;
+      transform: scale(0.25);
+      transform-origin: top left;
+      pointer-events: none;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+    .project-card:hover .project-preview iframe {
+      filter: grayscale(0%);
+    }
+
+    .project-info {
+      padding: 12px 14px 14px;
+    }
+    .project-name {
+      display: block;
+      font-size: 14.5px;
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+    .project-desc {
+      display: block;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.92);
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+      backdrop-filter: blur(4px);
+    }
+    .carousel-arrow:hover {
+      background: #e2e2de;
+      border-color: #aaa;
+    }
+    .carousel-arrow-left { left: -16px; }
+    .carousel-arrow-right { right: -16px; }
+
+    .projects-section {
+      margin-bottom: 44px;
+      overflow: visible;
+    }
+
+    @media (max-width: 600px) {
+      .project-card { flex: 0 0 260px; }
+      .project-preview { width: 260px; height: 156px; }
+      .project-preview iframe { transform: scale(0.217); }
+      .carousel-arrow { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -269,30 +372,59 @@
     </ul>
   </section>
 
-  <section>
+  <section class="projects-section">
     <h2>Side Projects</h2>
-    <ul>
-      <li>
-        <a href="https://www.voxbharat.ai/" target="_blank">VoxBharat</a>
-        <span class="meta">AI voice surveys for customer research · India</span>
-      </li>
-      <li>
-        <a href="https://sixthstump.com/" target="_blank">Sixth Stump</a>
-        <span class="meta">Cricket analytics and AI commentary</span>
-      </li>
-      <li>
-        <a href="https://github.com/alakhotia160011/argos" target="_blank">ARGOS</a>
-        <span class="meta">Macro intelligence system</span>
-      </li>
-      <li>
-        <a href="https://predictionpost-two.vercel.app/" target="_blank">Prediction Post</a>
-        <span class="meta">Prediction market news dashboard</span>
-      </li>
-      <li>
-        <a href="https://github.com/alakhotia160011" target="_blank">LATAM News Monitor</a>
-        <span class="meta">Sovereign credit news aggregator</span>
-      </li>
-    </ul>
+    <div style="position:relative;">
+      <button class="carousel-arrow carousel-arrow-left" onclick="document.getElementById('projectCarousel').scrollBy({left:-320,behavior:'smooth'})" aria-label="Scroll left">&#8249;</button>
+      <button class="carousel-arrow carousel-arrow-right" onclick="document.getElementById('projectCarousel').scrollBy({left:320,behavior:'smooth'})" aria-label="Scroll right">&#8250;</button>
+      <div class="project-carousel" id="projectCarousel">
+        <a href="https://www.voxbharat.ai/" target="_blank" class="project-card">
+          <div class="project-preview">
+            <iframe src="https://www.voxbharat.ai/" loading="lazy" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
+          <div class="project-info">
+            <span class="project-name">VoxBharat</span>
+            <span class="project-desc">AI voice surveys for customer research · India</span>
+          </div>
+        </a>
+        <a href="https://sixthstump.com/" target="_blank" class="project-card">
+          <div class="project-preview">
+            <iframe src="https://sixthstump.com/" loading="lazy" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
+          <div class="project-info">
+            <span class="project-name">Sixth Stump</span>
+            <span class="project-desc">Cricket analytics and AI commentary</span>
+          </div>
+        </a>
+        <a href="https://github.com/alakhotia160011/argos" target="_blank" class="project-card">
+          <div class="project-preview">
+            <iframe src="https://github.com/alakhotia160011/argos" loading="lazy" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
+          <div class="project-info">
+            <span class="project-name">ARGOS</span>
+            <span class="project-desc">Macro intelligence system</span>
+          </div>
+        </a>
+        <a href="https://predictionpost-two.vercel.app/" target="_blank" class="project-card">
+          <div class="project-preview">
+            <iframe src="https://predictionpost-two.vercel.app/" loading="lazy" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
+          <div class="project-info">
+            <span class="project-name">Prediction Post</span>
+            <span class="project-desc">Prediction market news dashboard</span>
+          </div>
+        </a>
+        <a href="https://github.com/alakhotia160011" target="_blank" class="project-card">
+          <div class="project-preview">
+            <iframe src="https://github.com/alakhotia160011" loading="lazy" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
+          <div class="project-info">
+            <span class="project-name">LATAM News Monitor</span>
+            <span class="project-desc">Sovereign credit news aggregator</span>
+          </div>
+        </a>
+      </div>
+    </div>
   </section>
 
 
