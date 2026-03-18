@@ -229,16 +229,18 @@
       overflow: hidden;
       background: #f0f0ee;
     }
-    .preview-label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      font-family: 'EB Garamond', serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.02em;
-      color: var(--muted);
+    .project-preview iframe {
+      width: 1200px;
+      height: 720px;
+      border: none;
+      transform: scale(0.25);
+      transform-origin: top left;
+      pointer-events: none;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+    .project-card:hover .project-preview iframe {
+      filter: grayscale(0%);
     }
 
     .project-info {
@@ -291,6 +293,7 @@
     @media (max-width: 600px) {
       .project-card { flex: 0 0 260px; }
       .project-preview { width: 260px; height: 156px; }
+      .project-preview iframe { transform: scale(0.217); }
       .carousel-arrow { display: none; }
     }
   </style>
@@ -376,35 +379,45 @@
       <button class="carousel-arrow carousel-arrow-right" onclick="document.getElementById('projectCarousel').scrollBy({left:320,behavior:'smooth'})" aria-label="Scroll right">&#8250;</button>
       <div class="project-carousel" id="projectCarousel">
         <a href="https://www.voxbharat.ai/" target="_blank" class="project-card">
-          <div class="project-preview"><span class="preview-label">VoxBharat</span></div>
+          <div class="project-preview">
+            <iframe src="https://www.voxbharat.ai/" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
           <div class="project-info">
             <span class="project-name">VoxBharat</span>
             <span class="project-desc">AI voice surveys for customer research · India</span>
           </div>
         </a>
         <a href="https://sixthstump.com/" target="_blank" class="project-card">
-          <div class="project-preview"><span class="preview-label">Sixth Stump</span></div>
+          <div class="project-preview">
+            <iframe src="https://sixthstump.com/" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
           <div class="project-info">
             <span class="project-name">Sixth Stump</span>
             <span class="project-desc">Cricket analytics and AI commentary</span>
           </div>
         </a>
         <a href="https://argos-trading.vercel.app/" target="_blank" class="project-card">
-          <div class="project-preview"><span class="preview-label">ARGOS</span></div>
+          <div class="project-preview">
+            <iframe src="https://argos-trading.vercel.app/" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
           <div class="project-info">
             <span class="project-name">ARGOS</span>
             <span class="project-desc">Macro intelligence system</span>
           </div>
         </a>
         <a href="https://predictionpost-two.vercel.app/" target="_blank" class="project-card">
-          <div class="project-preview"><span class="preview-label">Prediction Post</span></div>
+          <div class="project-preview">
+            <iframe src="https://predictionpost-two.vercel.app/" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
           <div class="project-info">
             <span class="project-name">Prediction Post</span>
             <span class="project-desc">Prediction market news dashboard</span>
           </div>
         </a>
         <a href="https://bondmonitor.vercel.app/" target="_blank" class="project-card">
-          <div class="project-preview"><span class="preview-label">Bond Monitor</span></div>
+          <div class="project-preview">
+            <iframe src="https://bondmonitor.vercel.app/" sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+          </div>
           <div class="project-info">
             <span class="project-name">Bond Monitor</span>
             <span class="project-desc">Sovereign credit news aggregator</span>
@@ -507,6 +520,7 @@
       const overlay = document.getElementById('pageTransition');
       overlay.classList.remove('active');
     });
+
   </script>
 </body>
 </html>
