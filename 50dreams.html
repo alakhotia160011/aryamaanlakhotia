@@ -95,8 +95,6 @@
 
     /* Dream checklist */
     ol li {
-      cursor: pointer;
-      user-select: none;
       position: relative;
       transition: color 0.3s ease;
     }
@@ -218,53 +216,13 @@
   </ol>
 
   <script>
-    // Add strike-line span to each dream item
-    document.querySelectorAll('ol li').forEach(li => {
+    // Add strike-line span and mark pre-completed dreams
+    const preCompleted = [9, 10, 25, 41, 50];
+    document.querySelectorAll('ol li').forEach((li, i) => {
       const line = document.createElement('span');
       line.className = 'strike-line';
       li.appendChild(line);
-    });
-
-    // Pre-completed dreams (1-indexed)
-    const preCompleted = [9, 10, 25, 50];
-
-    // Load state from localStorage
-    const storageKey = 'dreams-completed';
-    let completed = JSON.parse(localStorage.getItem(storageKey) || '[]');
-
-    // Merge pre-completed on first visit
-    if (!localStorage.getItem(storageKey)) {
-      completed = [...preCompleted];
-      localStorage.setItem(storageKey, JSON.stringify(completed));
-    }
-
-    const items = document.querySelectorAll('ol li');
-
-    function applyState() {
-      items.forEach((li, i) => {
-        const num = i + 1;
-        if (completed.includes(num)) {
-          li.classList.add('done');
-        } else {
-          li.classList.remove('done');
-        }
-      });
-    }
-
-    applyState();
-
-    items.forEach((li, i) => {
-      li.addEventListener('click', () => {
-        const num = i + 1;
-        const idx = completed.indexOf(num);
-        if (idx > -1) {
-          completed.splice(idx, 1);
-        } else {
-          completed.push(num);
-        }
-        localStorage.setItem(storageKey, JSON.stringify(completed));
-        applyState();
-      });
+      if (preCompleted.includes(i + 1)) li.classList.add('done');
     });
 
     // Scroll-reveal
