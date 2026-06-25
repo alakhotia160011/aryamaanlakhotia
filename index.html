@@ -94,9 +94,16 @@
       border: 1.5px solid var(--text);
       border-radius: 999px;
       color: var(--text);
+      text-decoration: none;
       font-size: 13.5px;
       font-weight: 500;
       letter-spacing: 0.01em;
+      background: transparent;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .location-pill:hover {
+      background: var(--text);
+      color: var(--bg);
     }
 
     .bio {
@@ -379,7 +386,7 @@
     <div class="header-text">
       <h1>Aryamaan Lakhotia</h1>
       <div class="pill-row">
-        <span class="location-pill">New York</span>
+        <a href="https://maps.app.goo.gl/ng38ri1XQ7PPyVYVA" target="_blank" class="location-pill">New York</a>
         <a href="https://calendly.com/aryamaan-lakhotia/30min" target="_blank" class="cta-pill">Book a call <span style="font-size:14px;">&rarr;</span></a>
       </div>
       <p class="tagline" style="margin-top:4px;">I help Americans save more at <a href="https://basiccapital.com/b" target="_blank" style="color:var(--muted);text-decoration:underline;text-underline-offset:3px;">Basic Capital</a>. I also think about and build for India.</p>
@@ -420,7 +427,8 @@
   </div>
 
   <div class="bio">
-    <p>At <a href="https://basiccapital.com/b" target="_blank">Basic Capital</a>, I work on the platforms engineering and capital markets side of the business. I build AI agents to make our work easier. The biggest one so far is Alex, our inbound voice AI for customer support. I also make sure trades execute efficiently and money flows smoothly from paycheck deductions to investments.</p>
+    <p>I like to pick good quests. Right now, that means helping everyday Americans build wealth at <a href="https://basiccapital.com/b" target="_blank">Basic Capital</a>.</p>
+    <p style="margin-top:14px;">Over here, I create AI agents to streamline workflows across platform engineering and capital markets. Some are external, like our inbound voice AI for customer support. Others are internal compliance and trading agents that keep trades executing efficiently, money flowing smoothly from paycheck to investment, and the business in compliance.</p>
     <p style="margin-top:14px;">Before that, I traded Latin American sovereign credit at <a href="https://www.bofasecurities.com" target="_blank">Bank of America</a>, where my daily newsletter on bond markets was read by 8,500 subscribers. I sat on the AI council and led a project to centralize credit trading databases and document workflows so internal LLMs could use them as context.</p>
     <p style="margin-top:14px;">Most of my side projects come from problems I have experienced firsthand. The biggest one right now is <a href="https://www.voxbharat.ai/" target="_blank">VoxBharat</a>, where I am building voice AI for the 900 million Indians who prefer speaking over typing. AI-powered phone calls replace traditional surveys in 10+ vernacular languages, at a fraction of the cost.</p>
     <p style="margin-top:14px;">Before finance, I worked on product and growth at <a href="https://www.seedlabs.com/" target="_blank">Seed Labs</a>, was Chief of Staff at Merry as a <a href="https://publicservice.fas.harvard.edu/priscilla-chan-summer-service-stipend" target="_blank">Priscilla Chan Fellow</a> through Harvard, interned in economic research at the <a href="https://www.cba.am/en/" target="_blank">Central Bank of Armenia</a>, and was Community Lead at <a href="https://www.openhouse.study/" target="_blank">Openhouse</a>. During Covid, I left it all to farm cotton in rural Maharashtra.</p>
